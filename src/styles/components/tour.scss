@@ -1,0 +1,26 @@
+#canvas-container {
+  position: relative;
+}
+
+.tour {
+  &-button {
+    position: absolute;
+    bottom: 25%;
+    left: 47.5%;
+    color: $color-scheme-1;
+    font-size: 2.8rem;
+    background-color: $color-light-shade-scheme-1;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    z-index: 1000;
+    box-shadow: .2rem .5rem .5rem .2rem rgba(255, 255, 255, 0.5);
+    transition: all .5s;
+
+    &:hover {
+      cursor: pointer;
+      padding: 1rem 2.5rem;
+      box-shadow: .5rem .5rem .5rem .4rem rgba(255, 255, 255, 0.3);
+    }
+    
+  }
+}

@@ -1,0 +1,57 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit; }
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+  padding: env(safe-area-inset); }
+
+html,
+body {
+  overflow-x: hidden; }
+
+body {
+  font-family: 'Helvetica';
+  font-style: normal;
+  color: black;
+  font-weight: 300;
+  line-height: 1.6; }
+  body::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: #52485C; }
+  body::-webkit-scrollbar-thumb {
+    background-color: white; }
+
+#canvas-container {
+  position: relative; }
+
+.tour-button {
+  position: absolute;
+  bottom: 25%;
+  left: 47.5%;
+  color: #52485C;
+  font-size: 2.8rem;
+  background-color: #dbdbdb;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  z-index: 1000;
+  box-shadow: 0.2rem 0.5rem 0.5rem 0.2rem rgba(255, 255, 255, 0.5);
+  transition: all .5s; }
+  .tour-button:hover {
+    cursor: pointer;
+    padding: 1rem 2.5rem;
+    box-shadow: 0.5rem 0.5rem 0.5rem 0.4rem rgba(255, 255, 255, 0.3); }
+
+.nav {
+  position: absolute;
+  top: 0%;
+  display: flex;
+  background-color: transparent;
+  color: white;
+  font-size: 1.6rem;
+  padding: 2.5rem; }

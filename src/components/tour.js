@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
@@ -6,14 +6,16 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 
 const Tour = ({}) => {
   const tourRef = useRef(null);
+
+  const [orbitControls, setOrbitControls] = useState(false)
   
   useEffect(() => {
     let scene = new THREE.Scene();
 
     let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
     camera.position.x = 0
-    camera.position.y = 1
-    camera.position.z = 3.5
+    camera.position.y = 0
+    camera.position.z = 5
     scene.add(camera)
     
     let renderer = new THREE.WebGLRenderer();
@@ -59,6 +61,7 @@ const Tour = ({}) => {
     
       const material = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
       const text = new THREE.Mesh(textGeometry, material)
+      text.rotation.y = -.1
       scene.add(text)
 
     } );
@@ -70,23 +73,14 @@ const Tour = ({}) => {
     directionalLight.position.set(1, 2, 2)
     scene.add(directionalLight)
 
-    const material = new THREE.MeshStandardMaterial()
-    material.color = new THREE.Color('green')
-    material.roughness = 0.4
-
-    // const sphere = new THREE.Mesh(
-    //   new THREE.SphereGeometry(0.5, 32, 32),
-    //   material
-    // )
-    // sphere.position.x = - 1.5
-
-    // let geometry = new THREE.BoxGeometry();
-    // let cube = new THREE.Mesh(geometry, material);
-    // scene.add(cube);
-
     // Controls
-    const controls = new OrbitControls(camera, renderer.domElement)
-    controls.enableDamping = true
+    let controls
+    
+    if(orbitControls){
+      controls = new OrbitControls(camera, renderer.domElement)
+      controls.enableDamping = true
+    }
+    
 
     const clock = new THREE.Clock()
 
@@ -94,7 +88,7 @@ const Tour = ({}) => {
       const elapsedTime = clock.getElapsedTime()
 
       // Update controls
-      controls.update()
+      if(orbitControls) controls.update()
 
       // Render
       renderer.render(scene, camera)
@@ -107,11 +101,17 @@ const Tour = ({}) => {
 
     return () => tourRef.current.removeChild( renderer.domElement );
     
-  }, [])
+  }, [orbitControls])
   
   return (
     <div ref={tourRef} id="canvas-container">
       <div className="nav">Hello</div>
+      <div 
+        className="tour-button"
+        onClick={() => setOrbitControls(true)}
+      >
+        Start Tour
+      </div>
     </div>
   )
 }
