@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Nav from '../components/nav'
 import * as THREE from "three";
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
@@ -18,9 +19,10 @@ const Tour = ({}) => {
     camera.position.z = 5
     scene.add(camera)
     
-    let renderer = new THREE.WebGLRenderer();
+    let renderer = new THREE.WebGLRenderer({ antialias: true  });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.shadowMap.enabled = true;
   
     let onWindowResize = function () {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -46,14 +48,14 @@ const Tour = ({}) => {
         '7 Secrets of Sedona', 
         {
           font: font,
-          size: 0.5,
+          size: 0.6,
           height: 0.2,
-          curveSegments: 4,
+          curveSegments: 1,
           bevelEnabled: true,
-          bevelThickness: 0.03,
-          bevelSize: 0.01,
-          bevelOffset: 0,
-          bevelSegments: 2
+          bevelThickness: 0.01,
+          bevelSize: 0.02,
+          bevelOffset: .008,
+          bevelSegments: 3
         } 
       );
 
@@ -66,12 +68,54 @@ const Tour = ({}) => {
 
     } );
 
+    var terrain;
+    var geometry = new THREE.PlaneBufferGeometry(100, 400, 400, 300);
+
+    var uniforms = {
+      time: { type: "f", value: 0.0 },
+      distortCenter: { type: "f", value: 0.1 },
+      roadWidth: { type: "f", value: 0.5 },
+      pallete:{ type: "t", value: null},
+      speed: { type: "f", value: 0.5 },
+      maxHeight: { type: "f", value: 10.0 },
+      color: new THREE.Color(1, 1, 1)
+    }
+
+    var material = new THREE.ShaderMaterial({
+      uniforms: THREE.UniformsUtils.merge([ THREE.ShaderLib.basic.uniforms, uniforms ]),
+      vertexShader: document.getElementById( 'custom-vertex' ).textContent,
+      fragmentShader: document.getElementById( 'custom-fragment' ).textContent,
+      wireframe: false,
+      fog: true
+    });
+
+    terrain = new THREE.Mesh(geometry, material);
+    terrain.position.z = -180;
+    terrain.rotation.x = -Math.PI / 2
+
+    scene.add(terrain)
+
+    const geometrySphere = new THREE.SphereGeometry( 10, 28, 11 );
+    const matcapTextureSun = textureLoader.load('/matcaps/3.png')
+    const materialSphere = new THREE.MeshBasicMaterial( { color: 0xFBE46B, map: matcapTextureSun } );
+
+    let sunSphere = new THREE.Mesh( geometrySphere, materialSphere );
+    sunSphere.position.set(10, 20, -100)
+    scene.add( sunSphere );
+    
+    // var theta = Math.PI * ( -0.02 );
+    // var phi = 2 * Math.PI * ( -.25 );
+
+    // sunSphere.position.x = 0 * Math.cos( phi );
+    // sunSphere.position.y = 0 * Math.sin( phi ) * Math.sin( theta );
+    // sunSphere.position.z = 0 * Math.sin( phi ) * Math.cos( theta );
+    
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
     scene.add(ambientLight)
 
-    const directionalLight = new THREE.DirectionalLight(0x00fffc, 1)
-    directionalLight.position.set(1, 2, 2)
-    scene.add(directionalLight)
+    // const directionalLight = new THREE.DirectionalLight(0x00fffc, 1)
+    // directionalLight.position.set(1, 2, 2)
+    // scene.add(directionalLight)
 
     // Controls
     let controls
@@ -105,7 +149,7 @@ const Tour = ({}) => {
   
   return (
     <div ref={tourRef} id="canvas-container">
-      <div className="nav">Hello</div>
+      <Nav/>
       <div 
         className="tour-button"
         onClick={() => setOrbitControls(true)}
