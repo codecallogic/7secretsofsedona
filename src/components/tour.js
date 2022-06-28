@@ -5,6 +5,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 
+// RESOURCES
+// https://github.com/ma77os/InteractiveLandscape/blob/master/js/demo1.js
+// https://github.com/ma77os/InteractiveLandscape/blob/master/index.html
+// https://codepen.io/soju22/pen/PLeLwo?editors=0110
+// https://www.youtube.com/watch?v=2AQLMZwQpDo
+
 const Tour = ({}) => {
   const tourRef = useRef(null);
 
@@ -41,6 +47,7 @@ const Tour = ({}) => {
 
     // Fonts
     const loader = new FontLoader()
+    let textItem;
 
     loader.load( '/fonts/helvetiker_regular.typeface.json', function ( font ) {
 
@@ -62,10 +69,10 @@ const Tour = ({}) => {
       textGeometry.center()
     
       const material = new THREE.MeshMatcapMaterial({ matcap: matcapTexture })
-      const text = new THREE.Mesh(textGeometry, material)
-      text.rotation.y = -.1
-      scene.add(text)
-
+    
+      textItem = new THREE.Mesh(textGeometry, material)
+      textItem.rotation.y = -.1
+      scene.add(textItem)
     } );
 
     var terrain;
@@ -130,6 +137,11 @@ const Tour = ({}) => {
 
     const tick = () => {
       const elapsedTime = clock.getElapsedTime()
+
+      const textAngle = - elapsedTime * 0.3
+      if(textItem && orbitControls) textItem.position.x = Math.cos(textAngle) * (2 + Math.sin(elapsedTime * 0.32))
+      if(textItem && orbitControls) textItem.position.z = Math.sin(textAngle) * (3 + Math.sin(elapsedTime * 0.2))
+      if(textItem && !orbitControls) textItem.position.y = Math.sin(elapsedTime * .5) + Math.sin(elapsedTime * 1)
 
       // Update controls
       if(orbitControls) controls.update()
