@@ -5,7 +5,6 @@ function App() {
   
   return (
     <div>
-      <h1>Hello</h1>
       <Tour></Tour>
       <h2>Testing</h2>
     </div>
