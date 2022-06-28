@@ -16,6 +16,10 @@
     box-shadow: .2rem .5rem .5rem .2rem rgba(78, 77, 77, 0.5);
     transition: all .5s;
 
+    @media only screen and (max-width: $large){
+      left: 45%;
+    }
+
     &:hover {
       cursor: pointer;
       padding: 1rem 2.5rem;

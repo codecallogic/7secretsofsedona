@@ -8,11 +8,29 @@
   width: 100%;
   display: flex;
   align-items: center;
+  
+  @media only screen and (max-width: $large){
+    display: block;
+  }
+
+  @media only screen and (max-width: $extra-large){
+    display: block;
+  }
 
   &-image {
     width: 60%;
     margin-left: 4rem;
     border-radius: 2rem;
+
+    @media only screen and (max-width: $large){
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    @media only screen and (max-width: $extra-large){
+      width: 60%;
+      margin: 0 auto;
+    }
 
     img {
       width: 100%;
@@ -28,11 +46,30 @@
     width: 100%;
     padding: 2rem 1rem;
 
+    @media only screen and (max-width: $large){
+      display: block;
+      text-align: center;
+    }
+
+    @media only screen and (max-width: $extra-large){
+      display: block;
+      text-align: center;
+    }
+
     h1 {
       font-size: 2.4rem;
       text-transform: uppercase;
       color: $color-dark-shade-scheme-3;
       margin-left: 1rem;
+
+      @media only screen and (max-width: $large){
+        margin-bottom: 2rem;
+      }
+
+      @media only screen and (max-width: $extra-large){
+        margin-bottom: 2rem;
+      }
+      
     }
 
     h2 {
