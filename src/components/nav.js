@@ -8,6 +8,7 @@ const Nav = ({}) => {
         <div className="nav-menu">
           <div className="nav-menu">
             <div className="nav-menu-item">Reserve</div>
+            <div className="nav-menu-item">Login</div>
           </div>
         </div>
       </div>

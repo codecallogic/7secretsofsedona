@@ -1,0 +1,14 @@
+.boxSection {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3rem;
+  align-items: center;
+ 
+  &-item {
+    border: .1rem solid $color-dark-shade-scheme-1;
+    border-radius: 1.2rem;
+    width: 33.3333%;
+    height: 30rem;
+  }
+  
+}

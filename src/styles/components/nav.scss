@@ -33,23 +33,23 @@
     &-item {
       display: flex;
       align-items: center;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: 500;
       margin-right: 2rem;
       color: white;
       text-transform: capitalize;
       border-bottom: solid 0.1rem transparent;
-      background-color: $color-scheme-1;
+      border-bottom: .2rem solid white;
       padding: 1rem 2rem;
-      border-radius: 1.2rem;
-      box-shadow: .2rem .2rem .1rem .1rem rgba(255, 255, 255, 0.2);
+      // border-radius: 1.2rem;
+      // box-shadow: .2rem .2rem .1rem .1rem rgba(255, 255, 255, 0.2);
       transition: all 0.5s;
       text-decoration: none;
       position: relative;
 
       &:hover {
         cursor: pointer;
-        border-bottom: solid 0.1rem black;
+        border-bottom: solid 0.1rem white;
       }
 
       &:hover > div {

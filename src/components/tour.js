@@ -18,6 +18,9 @@ const Tour = ({}) => {
   
   useEffect(() => {
     let scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x410a0e)
+    const fog = new THREE.Fog('#C9A055', 50, 105)
+    scene.fog = fog
 
     let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
     camera.position.x = 0
@@ -55,7 +58,7 @@ const Tour = ({}) => {
         '7 Secrets of Sedona', 
         {
           font: font,
-          size: 0.6,
+          size: 0.4,
           height: 0.2,
           curveSegments: 1,
           bevelEnabled: true,
@@ -72,6 +75,7 @@ const Tour = ({}) => {
     
       textItem = new THREE.Mesh(textGeometry, material)
       textItem.rotation.y = -.1
+      textItem.castShadow = true
       scene.add(textItem)
     } );
 
@@ -102,12 +106,12 @@ const Tour = ({}) => {
 
     scene.add(terrain)
 
-    const geometrySphere = new THREE.SphereGeometry( 10, 28, 11 );
-    const matcapTextureSun = textureLoader.load('/matcaps/3.png')
-    const materialSphere = new THREE.MeshBasicMaterial( { color: 0xFBE46B, map: matcapTextureSun } );
+    const geometrySphere = new THREE.SphereGeometry( 8, 24, 8 );
+    const matcapTextureSun = textureLoader.load('/matcaps/4.png')
+    const materialSphere = new THREE.MeshStandardMaterial( { map: matcapTextureSun } );
 
     let sunSphere = new THREE.Mesh( geometrySphere, materialSphere );
-    sunSphere.position.set(10, 20, -100)
+    sunSphere.position.set(10, 30, -100)
     scene.add( sunSphere );
     
     // var theta = Math.PI * ( -0.02 );
@@ -117,12 +121,12 @@ const Tour = ({}) => {
     // sunSphere.position.y = 0 * Math.sin( phi ) * Math.sin( theta );
     // sunSphere.position.z = 0 * Math.sin( phi ) * Math.cos( theta );
     
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
+    const ambientLight = new THREE.AmbientLight(0xC9A055, 0.4)
     scene.add(ambientLight)
 
-    // const directionalLight = new THREE.DirectionalLight(0x00fffc, 1)
-    // directionalLight.position.set(1, 2, 2)
-    // scene.add(directionalLight)
+    const directionalLight = new THREE.DirectionalLight(0xC9A055, 10)
+    directionalLight.position.set(0, 1, 1)
+    scene.add(directionalLight)
 
     // Controls
     let controls
@@ -138,10 +142,16 @@ const Tour = ({}) => {
     const tick = () => {
       const elapsedTime = clock.getElapsedTime()
 
-      const textAngle = - elapsedTime * 0.3
-      if(textItem && orbitControls) textItem.position.x = Math.cos(textAngle) * (2 + Math.sin(elapsedTime * 0.32))
-      if(textItem && orbitControls) textItem.position.z = Math.sin(textAngle) * (3 + Math.sin(elapsedTime * 0.2))
-      if(textItem && !orbitControls) textItem.position.y = Math.sin(elapsedTime * .5) + Math.sin(elapsedTime * 1)
+      const textAngle = elapsedTime
+      const terrainAngle = elapsedTime * 0.3
+      // if(textItem && orbitControls) textItem.position.x = Math.cos(textAngle) * (2 + Math.sin(elapsedTime * 0.32))
+      // if(textItem && orbitControls) textItem.position.z = Math.sin(textAngle) * (3 + Math.sin(elapsedTime * 0.2))
+      if(textItem && orbitControls) textItem.position.z = Math.cos(elapsedTime)
+      if(textItem && orbitControls) textItem.position.y = Math.sin(elapsedTime)
+      if(terrain) terrain.position.x = Math.cos(elapsedTime * 1)
+      if(sunSphere) sunSphere.position.y = Math.sin(elapsedTime * 2) + 20
+
+      sunSphere.rotation.y = elapsedTime + 0.3;
 
       // Update controls
       if(orbitControls) controls.update()

@@ -16,7 +16,7 @@ body {
   overflow-x: hidden; }
 
 body {
-  font-family: 'Helvetica';
+  font-family: "didot";
   font-style: normal;
   color: black;
   font-weight: 300;
@@ -40,12 +40,12 @@ body {
   padding: 1rem 2rem;
   border-radius: 2rem;
   z-index: 1000;
-  box-shadow: 0.2rem 0.5rem 0.5rem 0.2rem rgba(255, 255, 255, 0.5);
+  box-shadow: 0.2rem 0.5rem 0.5rem 0.2rem rgba(78, 77, 77, 0.5);
   transition: all .5s; }
   .tour-button:hover {
     cursor: pointer;
     padding: 1rem 2.5rem;
-    box-shadow: 0.5rem 0.5rem 0.5rem 0.4rem rgba(255, 255, 255, 0.3); }
+    box-shadow: 0.5rem 0.5rem 0.5rem 0.4rem rgba(0, 0, 0, 0.3); }
 
 .nav {
   position: absolute;
@@ -75,22 +75,20 @@ body {
     .nav-menu-item {
       display: flex;
       align-items: center;
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: 500;
       margin-right: 2rem;
       color: white;
       text-transform: capitalize;
       border-bottom: solid 0.1rem transparent;
-      background-color: #52485C;
+      border-bottom: .2rem solid white;
       padding: 1rem 2rem;
-      border-radius: 1.2rem;
-      box-shadow: 0.2rem 0.2rem 0.1rem 0.1rem rgba(255, 255, 255, 0.2);
       transition: all 0.5s;
       text-decoration: none;
       position: relative; }
       .nav-menu-item:hover {
         cursor: pointer;
-        border-bottom: solid 0.1rem black; }
+        border-bottom: solid 0.1rem white; }
       .nav-menu-item:hover > div {
         font-size: 1.2rem;
         visibility: visible; }
@@ -223,3 +221,52 @@ body {
     .wrapper {
       padding-left: 3rem !important;
       padding-right: 3rem !important; } }
+
+.imageSection {
+  border: none;
+  margin-top: -3rem;
+  margin-bottom: 5rem;
+  position: relative;
+  z-index: 1000;
+  background-color: white;
+  width: 100%;
+  display: flex;
+  align-items: center; }
+  .imageSection-image {
+    width: 60%;
+    margin-left: 4rem;
+    border-radius: 2rem; }
+    .imageSection-image img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 2rem;
+      clip-path: polygon(0 3.5%, 2% 3%, 7.5% 3.5%, 8% 3.7%, 8.5% 4%, 11.5% 3.1%, 12% 3%, 12.5% 3.1%, 15% 4%, 17.7% 2.1%, 18% 2%, 19.5% 2.5%, 23% 3%, 28% 3%, 29% 3.5%, 31% 4%, 32% 5%, 34.5% 3.2%, 35% 3%, 36% 3.3%, 39% 5%, 48% 0, 50% 1%, 52.5% 1%, 53% 1.1%, 58% 5%, 60% 4.7%, 63.5% 3%, 64% 3.1%, 64.5% 3%, 65% 3.2%, 66% 3.1%, 69% 4%, 70% 4.3%, 73% 5%, 75% 4.6%, 77% 4.3%, 77.6% 4.1%, 78% 4%, 79% 4.6%, 80% 5%, 80.5% 4.8%, 83% 3%, 85% 3.7%, 86% 3.5%, 87% 3.7%, 88% 3%, 93% 3.7%, 94% 2.7%, 95% 3%, 96% 2.9%, 100% 3.5%, 100% 100%, 0 100%); }
+  .imageSection-description {
+    display: flex;
+    z-index: 1000;
+    width: 100%;
+    padding: 2rem 1rem; }
+    .imageSection-description h1 {
+      font-size: 2.4rem;
+      text-transform: uppercase;
+      color: #666;
+      margin-left: 1rem; }
+    .imageSection-description h2 {
+      margin-left: 5rem;
+      font-size: 1.4rem;
+      font-weight: 300; }
+
+.boxSection {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3rem;
+  align-items: center; }
+  .boxSection-item {
+    border: 0.1rem solid #413838;
+    border-radius: 1.2rem;
+    width: 33.3333%;
+    height: 30rem; }
+
+.clipPath--mtn2--T {
+  clip-path: polygon(0 3.5%, 2% 3%, 7.5% 3.5%, 8% 3.7%, 8.5% 4%, 11.5% 3.1%, 12% 3%, 12.5% 3.1%, 15% 4%, 17.7% 2.1%, 18% 2%, 19.5% 2.5%, 23% 3%, 28% 3%, 29% 3.5%, 31% 4%, 32% 5%, 34.5% 3.2%, 35% 3%, 36% 3.3%, 39% 5%, 48% 0, 50% 1%, 52.5% 1%, 53% 1.1%, 58% 5%, 60% 4.7%, 63.5% 3%, 64% 3.1%, 64.5% 3%, 65% 3.2%, 66% 3.1%, 69% 4%, 70% 4.3%, 73% 5%, 75% 4.6%, 77% 4.3%, 77.6% 4.1%, 78% 4%, 79% 4.6%, 80% 5%, 80.5% 4.8%, 83% 3%, 85% 3.7%, 86% 3.5%, 87% 3.7%, 88% 3%, 93% 3.7%, 94% 2.7%, 95% 3%, 96% 2.9%, 100% 3.5%, 100% 100%, 0 100%);
+  padding-top: 6rem; }
