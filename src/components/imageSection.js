@@ -1,3 +1,5 @@
+// RESOURCES
+// https://codepen.io/BillyHill/pen/xBvKpE
 
 const ImageSection = ({ url }) => {
   

@@ -18,7 +18,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "watch:css": "node-sass src/styles/main.scss src/styles/app.css -w"
+    "watch:css": "node-sass src/styles/main.scss src/styles/app.css -w",
+    "deploy": "vercel --prod"
   },
   "eslintConfig": {
     "extends": [

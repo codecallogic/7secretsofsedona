@@ -4,6 +4,9 @@ import ImageSection from './components/imageSection'
 import BoxSection from "./components/boxesSection";
 import { activities } from './helpers/activities'
 
+// RESOURCES
+// https://visitsedona.com/sedona-secret-7/
+
 function App() {
 
   return (

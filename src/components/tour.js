@@ -19,8 +19,8 @@ const Tour = ({}) => {
   useEffect(() => {
     let scene = new THREE.Scene();
     scene.background = new THREE.Color(0x410a0e)
-    const fog = new THREE.Fog('#C9A055', 50, 105)
-    scene.fog = fog
+    const fog = new THREE.Fog('#C9A055', 50, 100)
+    if(!orbitControls) scene.fog = fog
 
     let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100)
     camera.position.x = 0
@@ -44,11 +44,31 @@ const Tour = ({}) => {
 
     tourRef.current.appendChild(renderer.domElement);
 
-    // Textures
+    // TEXTURES
     const textureLoader = new THREE.TextureLoader()
-    const matcapTexture = textureLoader.load('/matcaps/8.png') 
+    const matcapTexture = textureLoader.load('/matcaps/8.png')
+    const matcapTextureSun = textureLoader.load('/matcaps/4.png')
 
-    // Fonts
+    let materialsArray = []
+    const skyboxFT = textureLoader.load('/skyboxes/Maskonaive/posx.jpg')
+    const skyboxBK = textureLoader.load('/skyboxes/Maskonaive/negx.jpg')
+    const skyboxUP = textureLoader.load('/skyboxes/Maskonaive/posy.jpg')
+    const skyboxDN = textureLoader.load('/skyboxes/Maskonaive/negy.jpg')
+    const skyboxRT = textureLoader.load('/skyboxes/Maskonaive/posz.jpg')
+    const skyboxLT = textureLoader.load('/skyboxes/Maskonaive/negz.jpg')
+
+    materialsArray.push(new THREE.MeshBasicMaterial({ map: skyboxFT }))
+    materialsArray.push(new THREE.MeshBasicMaterial({ map: skyboxBK }))
+    materialsArray.push(new THREE.MeshBasicMaterial({ map: skyboxUP }))
+    materialsArray.push(new THREE.MeshBasicMaterial({ map: skyboxDN }))
+    materialsArray.push(new THREE.MeshBasicMaterial({ map: skyboxRT }))
+    materialsArray.push(new THREE.MeshBasicMaterial({ map: skyboxLT }))
+
+    for(let i = 0; i < 6; i++){
+      materialsArray[i].side = THREE.BackSide
+    }
+
+    // TEXT
     const loader = new FontLoader()
     let textItem;
 
@@ -76,13 +96,15 @@ const Tour = ({}) => {
       textItem = new THREE.Mesh(textGeometry, material)
       textItem.rotation.y = -.1
       textItem.castShadow = true
-      scene.add(textItem)
+      if(!orbitControls) scene.add(textItem)
     } );
 
-    var terrain;
-    var geometry = new THREE.PlaneBufferGeometry(100, 400, 400, 300);
+    // TERRAIN
 
-    var uniforms = {
+    let terrain;
+    let geometry = new THREE.PlaneBufferGeometry(100, 400, 400, 300);
+
+    let uniforms = {
       time: { type: "f", value: 0.0 },
       distortCenter: { type: "f", value: 0.1 },
       roadWidth: { type: "f", value: 0.5 },
@@ -92,7 +114,7 @@ const Tour = ({}) => {
       color: new THREE.Color(1, 1, 1)
     }
 
-    var material = new THREE.ShaderMaterial({
+    let material = new THREE.ShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([ THREE.ShaderLib.basic.uniforms, uniforms ]),
       vertexShader: document.getElementById( 'custom-vertex' ).textContent,
       fragmentShader: document.getElementById( 'custom-fragment' ).textContent,
@@ -104,22 +126,24 @@ const Tour = ({}) => {
     terrain.position.z = -180;
     terrain.rotation.x = -Math.PI / 2
 
-    scene.add(terrain)
+    if(!orbitControls) scene.add(terrain)
+
+    // SUN
 
     const geometrySphere = new THREE.SphereGeometry( 8, 24, 8 );
-    const matcapTextureSun = textureLoader.load('/matcaps/4.png')
     const materialSphere = new THREE.MeshStandardMaterial( { map: matcapTextureSun } );
 
     let sunSphere = new THREE.Mesh( geometrySphere, materialSphere );
     sunSphere.position.set(10, 30, -100)
-    scene.add( sunSphere );
-    
-    // var theta = Math.PI * ( -0.02 );
-    // var phi = 2 * Math.PI * ( -.25 );
+    if(!orbitControls) scene.add( sunSphere );
 
-    // sunSphere.position.x = 0 * Math.cos( phi );
-    // sunSphere.position.y = 0 * Math.sin( phi ) * Math.sin( theta );
-    // sunSphere.position.z = 0 * Math.sin( phi ) * Math.cos( theta );
+    // SKYBOX
+    let skyboxGeo = new THREE.BoxGeometry(100, 100, 100)
+    let skybox = new THREE.Mesh(skyboxGeo, materialsArray)
+    skybox.position.set(0, 0, 10)
+    if(orbitControls) scene.add(skybox)
+
+    // LIGHTS
     
     const ambientLight = new THREE.AmbientLight(0xC9A055, 0.4)
     scene.add(ambientLight)
@@ -128,12 +152,14 @@ const Tour = ({}) => {
     directionalLight.position.set(0, 1, 1)
     scene.add(directionalLight)
 
-    // Controls
+    // CONTROLS
     let controls
     
     if(orbitControls){
       controls = new OrbitControls(camera, renderer.domElement)
       controls.enableDamping = true
+      controls.minDistance = 0;
+      controls.maxDistance = 10;
     }
     
 
@@ -146,10 +172,10 @@ const Tour = ({}) => {
       const terrainAngle = elapsedTime * 0.3
       // if(textItem && orbitControls) textItem.position.x = Math.cos(textAngle) * (2 + Math.sin(elapsedTime * 0.32))
       // if(textItem && orbitControls) textItem.position.z = Math.sin(textAngle) * (3 + Math.sin(elapsedTime * 0.2))
-      if(textItem && orbitControls) textItem.position.z = Math.cos(elapsedTime)
-      if(textItem && orbitControls) textItem.position.y = Math.sin(elapsedTime)
-      if(terrain) terrain.position.x = Math.cos(elapsedTime * 1)
-      if(sunSphere) sunSphere.position.y = Math.sin(elapsedTime * 2) + 20
+      // if(textItem && orbitControls) textItem.position.z = Math.cos(elapsedTime)
+      // if(textItem && orbitControls) textItem.position.y = Math.sin(elapsedTime)
+      // if(terrain) terrain.position.x = Math.cos(elapsedTime * 1)
+      // if(sunSphere) sunSphere.position.y = Math.sin(elapsedTime * 2) + 20
 
       sunSphere.rotation.y = elapsedTime + 0.3;
 
