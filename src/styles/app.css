@@ -45,6 +45,9 @@ body {
   @media only screen and (max-width: 992px) {
     .tour-button {
       left: 45%; } }
+  @media only screen and (max-width: 768px) {
+    .tour-button {
+      left: 40%; } }
   .tour-button:hover {
     cursor: pointer;
     padding: 1rem 2.5rem;
@@ -310,6 +313,11 @@ body {
         margin: 0 auto;
         margin-bottom: 3rem;
         margin-left: 3rem; } }
+    @media only screen and (max-width: 768px) {
+      .boxSection-item {
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 3rem; } }
     .boxSection-item:hover {
       cursor: pointer; }
     .boxSection-item-image {

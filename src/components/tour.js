@@ -174,10 +174,9 @@ const Tour = ({}) => {
       // if(textItem && orbitControls) textItem.position.z = Math.sin(textAngle) * (3 + Math.sin(elapsedTime * 0.2))
       // if(textItem && orbitControls) textItem.position.z = Math.cos(elapsedTime)
       // if(textItem && orbitControls) textItem.position.y = Math.sin(elapsedTime)
-      // if(terrain) terrain.position.x = Math.cos(elapsedTime * 1)
-      // if(sunSphere) sunSphere.position.y = Math.sin(elapsedTime * 2) + 20
-
-      sunSphere.rotation.y = elapsedTime + 0.3;
+      if(terrain && !orbitControls) terrain.position.x = Math.cos(elapsedTime * 1)
+      if(sunSphere && !orbitControls) sunSphere.position.y = Math.sin(elapsedTime * 2) + 20
+      if(sunSphere && !orbitControls) sunSphere.rotation.y = elapsedTime + 0.3;
 
       // Update controls
       if(orbitControls) controls.update()

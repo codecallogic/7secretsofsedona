@@ -20,6 +20,10 @@
       left: 45%;
     }
 
+    @media only screen and (max-width: $medium){
+      left: 40%;
+    }
+
     &:hover {
       cursor: pointer;
       padding: 1rem 2.5rem;
