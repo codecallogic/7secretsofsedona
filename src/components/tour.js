@@ -11,7 +11,7 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 // https://codepen.io/soju22/pen/PLeLwo?editors=0110
 // https://www.youtube.com/watch?v=2AQLMZwQpDo
 
-const Tour = ({}) => {
+const Tour = ({tour, setTour}) => {
   const tourRef = useRef(null);
 
   const [orbitControls, setOrbitControls] = useState(false)
@@ -197,12 +197,19 @@ const Tour = ({}) => {
   return (
     <div ref={tourRef} id="canvas-container">
       <Nav/>
+      { !tour &&
       <div 
         className="tour-button"
-        onClick={() => setOrbitControls(true)}
+        onClick={() => setTour(true)}
       >
         Start Tour
       </div>
+      }
+      { tour && 
+      <div className="tour-video">
+        <iframe src="https://app.cloudpano.com/tours/Bs4vtcfcP"></iframe>
+      </div>
+      }
     </div>
   )
 }
