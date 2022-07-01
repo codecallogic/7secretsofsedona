@@ -9,7 +9,7 @@ const BoxSection = ({ activity }) => {
       </div>
       <div className="boxSection-item-description">
         <h1>{activity.item}</h1>
-        <button>Learn more</button>
+        <button onClick={() => window.open(`${activity.link}`, '_blank')}>Learn more</button>
       </div>
     </div>
   )
