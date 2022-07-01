@@ -3,6 +3,7 @@ import "./styles/app.css"
 import Tour from './components/tour'
 import ImageSection from './components/imageSection'
 import BoxSection from "./components/boxesSection";
+import Footer from "./components/footer"
 import { activities } from './helpers/activities'
 
 // RESOURCES
@@ -29,6 +30,7 @@ function App() {
           />
         )}
       </div>
+      <Footer />
     </div>
   );
 }

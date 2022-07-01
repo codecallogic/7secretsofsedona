@@ -1,0 +1,41 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  background-color: $color-scheme-1;
+  padding: 3rem 5rem;
+
+  @media only screen and (max-width: $medium){
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+  }
+
+  &-section {
+    width: 30%;
+    text-align: center;
+
+    @media only screen and (max-width: $medium){
+      width: 80%;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: white;
+      text-align: center;
+    }
+
+    p {
+      font-size: 1.6rem;
+      padding: 1rem 0;
+      color: white;
+    }
+
+    a {
+      display: block;
+      font-size: 1.6rem;
+      color: white;
+      margin: 1rem 0;
+    }
+
+  }
+}
